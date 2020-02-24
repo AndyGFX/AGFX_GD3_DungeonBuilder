@@ -1,18 +1,19 @@
 # Godot 3.2 Dungeon builder
 
- Spelunky inspired dungeon cell builder with option to create connected cells fromused defined side:
- - from TOP
- - from LEFT
- - from RIGHT
- - from BOTTOM
-
+ Spelunky inspired dungeon cell builder with option to create connected cells from user defined side:
+- from TOP
+- from LEFT
+- from RIGHT
+- from BOTTOM
+- or randomly selected side, if rndStartSide is set to true
 
 - ## DungeonBuilder
     - class: `ProceduralDungeon`
         - properties:
             - width
             - height
-            - buildeMode
+            - startSide ()
+            - rndStartSide
             - add extended cell
             - extended cell probability
             - connect extended cell
@@ -21,7 +22,7 @@
             - xyz.Build()
             - xyz.Reset()            
         - result:
-            - is stored in 2D array
+            - is stored in 2D array of `DungeonCell`
 
 
 ``` java
@@ -47,6 +48,5 @@ RED -  unused cell
 GREEN - main dungeon cells
 BLUE - randomly added extended cells
 
-# Screenshots
 
                     
