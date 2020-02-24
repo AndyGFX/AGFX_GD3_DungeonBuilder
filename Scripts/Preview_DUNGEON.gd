@@ -2,8 +2,9 @@ extends Node2D
 
 
 export var room_count:Vector2 = Vector2(8,8)
-export (ProceduralDungeon.eBuildMode) var buildMode = ProceduralDungeon.eBuildMode.SPELUNKY
+
 export (ProceduralDungeon.eStartSide) var startOnSide = ProceduralDungeon.eStartSide.TOP
+export (bool) var rndStartSide = false;
 export (bool) var addExtendedCells = false
 export (float,0.0,1.0) var extendedCellsProb = 0.5
 export (bool) var connectExtendedCells:bool = true
@@ -19,8 +20,9 @@ func _ready():
 	# build rooms
 	self.proceduralDungeonData = ProceduralDungeon.new(self.room_count.x,self.room_count.y,self.RandomSeed,self.userSeed)	
 	
-	self.proceduralDungeonData.buildMode = self.buildMode
+	
 	self.proceduralDungeonData.startSide = self.startOnSide
+	self.proceduralDungeonData.rndStartSide = self.rndStartSide
 	self.proceduralDungeonData.addExtendedCells = self.addExtendedCells
 	self.proceduralDungeonData.extendedCellsProb = self.extendedCellsProb
 	self.proceduralDungeonData.connectExtendedCells = self.connectExtendedCells

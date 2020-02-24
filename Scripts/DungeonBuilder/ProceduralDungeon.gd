@@ -6,8 +6,7 @@ class_name ProceduralDungeon
 #ENUMS
 
 enum eSideType {WALL,EXIT}
-enum eBuildMode {SPELUNKY,PATH}
-enum eStartSide {TOP=0,RIGHT=1,BOTTOM=2,LEFT=3,RANDOM=4}
+enum eStartSide {TOP=0,RIGHT=1,BOTTOM=2,LEFT=3}
 enum eCellType {UNUSED_CELL,LEVEL_CELL,EXTENDED_CELL}
 enum eDirections {UP=0,RIGHT=1,DOWN=2,LEFT=3}
 
@@ -21,8 +20,8 @@ var height = 32
 var data = []
 var done = false;
 
-var buildMode:int = eBuildMode.SPELUNKY
 var startSide:int = eStartSide.TOP
+var rndStartSide:bool = false
 var current_cell:Vector2 = Vector2.ZERO
 var connectedCells:PoolVector2Array = PoolVector2Array()
 var addExtendedCells:bool = false
@@ -84,13 +83,13 @@ func Build()->void:
 	seed(self._seed_)	
 	
 	# build dungeon cells by mode - PASS #2
-	match self.buildMode:
-		eBuildMode.SPELUNKY:
-			self.GenerateMapAsSpelunky()
-		eBuildMode.PATH:
-			self.GenerateMapAsPath()
-		eBuildMode.MAZE:
-			self.GenerateMapAsMaze()
+	
+	if self.rndStartSide:
+		self.startSide = randi() % 4
+		print(self.startSide)
+	
+	self.GenerateMapAsSpelunky()
+
 	self.done = true
 
 	# add doors to rooms and add link between rooms - PASS #3
@@ -303,8 +302,6 @@ func GetNextRoom_SpelunkyType_LEFT()->void:
 				
 	self.current_cell = self.current_cell + dir_offset
 
-func GenerateMapAsMaze()->void:
-	pass
 	
 func GenerateRoomLinksAndDoors()->void:
 
@@ -410,17 +407,6 @@ func GenerateMapAsSpelunky()->void:
 			self.GetNextRoom_SpelunkyType_LEFT()
 			self.data[self.current_cell.x][self.current_cell.y].cellType=eCellType.LEVEL_CELL
 			self.connectedCells.append(self.current_cell)
-
-	if  self.startSide == eStartSide.RANDOM:
-		
-		# RND->BOTTOM
-		self.current_cell = self.startCellPos
-		while self.current_cell.y<self.height-1:
-			self.GetNextRoom_SpelunkyType_TOP()
-			self.data[self.current_cell.x][self.current_cell.y].cellType=eCellType.LEVEL_CELL			
-			self.connectedCells.append(self.current_cell)
-		
-
 
 		pass
 
