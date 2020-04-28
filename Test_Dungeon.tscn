@@ -8,7 +8,7 @@ script = ExtResource( 1 )
 startOnSide = 1
 rndStartSide = true
 addExtendedCells = true
-extendedCellsProb = 0.434
+extendedCellsProb = 0.69
 userSeed = 128
 RandomSeed = true
 

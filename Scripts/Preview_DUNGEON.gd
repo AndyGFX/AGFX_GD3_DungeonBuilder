@@ -10,6 +10,7 @@ export (float,0.0,1.0) var extendedCellsProb = 0.5
 export (bool) var connectExtendedCells:bool = true
 export var userSeed:int = 2019
 export var RandomSeed:bool = false
+
 var proceduralDungeonData = null
 var paint_dungeons:Image = null
 var rscale:int = 7
